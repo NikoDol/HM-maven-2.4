@@ -11,23 +11,13 @@ public class StatsService {
     }
 
     public int findAverage(int[] numbers) {
-        int average;
-        int sum = 0;
-        for (int number : numbers) {
-            sum += number;
-        }
-        average = sum / numbers.length;
+        int average = calculateSum(numbers) / numbers.length;
         return average;
     }
 
     public int findMaxMonth(int[] numbers) {
-        int currentMax = numbers[0];
+        int currentMax = getMax(numbers);
         int month = 0;
-        for (int number : numbers) {
-            if (currentMax < number) {
-                currentMax = number;
-            }
-        }
         int result = 0;
         for (int number : numbers) {
             month++;
@@ -38,14 +28,20 @@ public class StatsService {
         return result;
     }
 
-    public int findMinMonth(int[] numbers) {
-        int currentMin = numbers[0];
-        int month = 0;
+    public int getMax(int[] numbers) {
+        int currentMax = numbers[0];
+
         for (int number : numbers) {
-            if (currentMin > number) {
-                currentMin = number;
+            if (currentMax < number) {
+                currentMax = number;
             }
         }
+        return currentMax;
+    }
+
+    public int findMinMonth(int[] numbers) {
+        int currentMin = getMin(numbers);
+        int month = 0;
         int result = 0;
         for (int number : numbers) {
             month++;
@@ -56,14 +52,19 @@ public class StatsService {
         return result;
     }
 
-    public int findMoreAverage(int[] numbers) {
-        int average;
-        int sum = 0;
-        for (int number : numbers) {
-            sum += number;
-        }
-        average = sum / numbers.length;
+    public int getMin(int[] numbers) {
+        int currentMin = numbers[0];
 
+        for (int number : numbers) {
+            if (currentMin > number) {
+                currentMin = number;
+            }
+        }
+        return currentMin;
+    }
+
+    public int findMoreAverage(int[] numbers) {
+        int average = findAverage(numbers);
         int count = 0;
         for (int number : numbers){
             if (number > average){
@@ -74,13 +75,7 @@ public class StatsService {
     }
 
     public int findLessAverage(int[] numbers) {
-        int average;
-        int sum = 0;
-        for (int number : numbers) {
-            sum += number;
-        }
-        average = sum / numbers.length;
-
+        int average = findAverage(numbers);
         int count = 0;
         for (int number : numbers){
             if (number < average){
